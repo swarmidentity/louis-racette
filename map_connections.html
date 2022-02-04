@@ -148,14 +148,19 @@
                 .style("stroke", "#fff")
                 .style("stroke-width", 0)
     
+                var colors = d3.scaleLinear()
+                    .domain(d3.ticks(0, 50, 11))
+                    .range(["#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", 
+                    "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"]);
+
         // Add the path
         svg.selectAll("myPath")
           .data(link)
           .join("path")
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
-            .style("stroke", "orange")
-            .style("stroke-width", 1)
+            .style("stroke", function(d,i) { return colors(i) })
+            .style("stroke-width", 2)
     
     })
     </script>
