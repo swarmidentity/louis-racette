@@ -1,0 +1,108 @@
+From,To,Approx_Date
+Redford,Montreal,1992
+Redford,Munich,2000
+Redford,Soldatna,2003
+Redford,Outer Banks,2004
+Redford,Orlando,2005
+Redford,Washington DC,2006
+Redford,Managua,2006
+Redford,Munich,2009
+Munich,Amsterdam,2009
+Amsterdam,Berlin,2009
+Berlin,Munich,2009
+Munich,Redford,2009
+Redford,Clarkson,2010
+Clarkson,Orlando,2010
+Orlando,NYC,2010
+NYC,Clarkson,2010
+Clarkson,Cincinnati,2011
+Cincinnati,Portland,2013
+Portland,New Orleans,2015
+Portland,Munich,2015
+Munich,Paris,2015
+Paris,Carcassonne,2015
+Carcassonne,Geneva,2015
+Geneva,Munich,2015
+Munich,Copenhagen,2015
+Copenhagen,Portland,2015
+Portland,Rabat,2016
+Rabat,Merzouga Desert,2016
+Merzouga Desert,Rabat,2016
+Rabat,Portland,2016
+Portland,Seattle,2016
+Seattle,Reykjavik,2016
+Reykjavik,Nairobi,2016
+Nairobi,Kakamega,2016
+Kakamega,Nairobi,2016
+Nairobi,Reykjavik,2016
+Reykjavik,Seattle,2016
+Seattle,Portland,2016
+Portland,Crescent City,2016
+Crescent City,Portland,2016
+Portland,NYC,2016
+NYC,Munich,2017
+Munich,Nairobi,2017
+Nairobi,Kakamega,2017
+Kakamega,Nairobi,2017
+Nairobi,Budapest,2017
+Budapest,Jinja,2017
+Jinja,NYC,2017
+NYC,Jinja,2017
+Jinja,Kigali,2017
+Kigali,Jinja,2017
+Jinja,Amsterdam,2018
+Amsterdam,San Francisco,2018
+San Francisco,Portland,2018
+Portland,Amsterdam,2018
+Amsterdam,Jinja,2018
+Jinja,Dharamshala,2018
+Dharamshala,New Delhi,2018
+New Delhi,Mumbai,2018
+Mumbai,Jinja,2018
+Jinja,Cape Town,2019
+Cape Town,Kakamega,2019
+Kakamega,Kilimanjaro,2019
+Kilimanjaro,Kakamega,2019
+Kakamega,Kigali,2019
+Kigali,Addis Ababa,2019
+Addis Ababa,Lalibela,2019
+Lalibela,Addis Ababa,2019
+Addis Ababa,Kigali,2019
+Kigali,Berlin,2019
+Berlin,NYC,2019
+NYC,Redford,2019
+Redford,NYC,2019
+NYC,Tokyo,2019
+Tokyo,Bangkok,2019
+Bangkok,Yangon,2019
+Yangon,Kalaw,2019
+Kalaw,Yangon,2019
+Yangon,Bangkok,2019
+Bangkok,Tokyo,2019
+Tokyo,NYC,2019
+NYC,Berlin,2019
+Berlin,Kigali,2020
+Kigali,Nairobi,2020
+Nairobi,Kigali,2020
+Kigali,Jinja,2020
+Jinja,Kigali,2020
+Kigali,Buffalo,2020
+Buffalo,Kigali,2020
+Kigali,NYC,2021
+NYC,Kigali,2021
+Kigali,Maputo,2021
+Maputo,Vilankulos,2021
+Vilankulos,Maputo,2021
+Maputo,Harare,2021
+Harare,Victoria Falls,2021
+Victoria Falls,Lusaka,2021
+Lusaka,Kigali,2021
+Kigali,Berlin,2021
+Berlin,Barcelona,2021
+Barcelona,Lisbon,2021
+Lisbon,NYC,2021
+NYC,Redford,2021
+Redford,NYC,2021
+NYC,Ushuaia,2022
+Ushuaia,Buenos Aires,2022
+Buenos Aires,Santiago,2022

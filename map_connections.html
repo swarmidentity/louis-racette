@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+        
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"></script>
+
+<!-- Create an element where the map will take place -->
+<svg id="my_dataviz" width="440" height="300"></svg>
+
+<script>
+
+    // The svg
+    const svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+    
+    // Map and projection
+    const projection = d3.geoMercator()
+        .scale(85)
+        .translate([width/2, height/2*1.3])
+    
+    // Create data: use a python script to generate this from some csvs and copy/paste the result here. A bit sloppy, but ok for a one-off.
+    const link = [
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-73.5673,45.5017]]},// From: Redford To: Montreal"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [11.582,48.1351]]},// From: Redford To: Munich"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-151.0583,60.4878]]},// From: Redford To: Soldatna"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-75.4665,35.5585]]},// From: Redford To: Outer Banks"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-81.3789,28.5384]]},// From: Redford To: Orlando"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-77.0369,38.9072]]},// From: Redford To: Washington DC"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-86.2362,12.115]]},// From: Redford To: Managua"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [11.582,48.1351]]},// From: Redford To: Munich"
+{type: "LineString", coordinates: [[11.582,48.1351], [4.9041,52.3676]]},// From: Munich To: Amsterdam"
+{type: "LineString", coordinates: [[4.9041,52.3676], [13.405,52.52]]},// From: Amsterdam To: Berlin"
+{type: "LineString", coordinates: [[13.405,52.52], [11.582,48.1351]]},// From: Berlin To: Munich"
+{type: "LineString", coordinates: [[11.582,48.1351], [-73.82116,44.618195]]},// From: Munich To: Redford"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-75.012221,44.658681]]},// From: Redford To: Clarkson"
+{type: "LineString", coordinates: [[-75.012221,44.658681], [-81.3789,28.5384]]},// From: Clarkson To: Orlando"
+{type: "LineString", coordinates: [[-81.3789,28.5384], [-74.006,40.7128]]},// From: Orlando To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [-75.012221,44.658681]]},// From: NYC To: Clarkson"
+{type: "LineString", coordinates: [[-75.012221,44.658681], [-84.549037,39.097428]]},// From: Clarkson To: Cincinnati"
+{type: "LineString", coordinates: [[-84.549037,39.097428], [-122.665499,45.477682]]},// From: Cincinnati To: Portland"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [-90.0715,29.9511]]},// From: Portland To: New Orleans"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [11.582,48.1351]]},// From: Portland To: Munich"
+{type: "LineString", coordinates: [[11.582,48.1351], [2.3522,48.8566]]},// From: Munich To: Paris"
+{type: "LineString", coordinates: [[2.3522,48.8566], [2.3518,43.2132]]},// From: Paris To: Carcassonne"
+{type: "LineString", coordinates: [[2.3518,43.2132], [6.1432,46.2044]]},// From: Carcassonne To: Geneva"
+{type: "LineString", coordinates: [[6.1432,46.2044], [11.582,48.1351]]},// From: Geneva To: Munich"
+{type: "LineString", coordinates: [[11.582,48.1351], [12.5683,55.6761]]},// From: Munich To: Copenhagen"
+{type: "LineString", coordinates: [[12.5683,55.6761], [-122.665499,45.477682]]},// From: Copenhagen To: Portland"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [-6.8498,33.9716]]},// From: Portland To: Rabat"
+{type: "LineString", coordinates: [[-6.8498,33.9716], [-4.0175,31.1178]]},// From: Rabat To: Merzouga Desert"
+{type: "LineString", coordinates: [[-4.0175,31.1178], [-6.8498,33.9716]]},// From: Merzouga Desert To: Rabat"
+{type: "LineString", coordinates: [[-6.8498,33.9716], [-122.665499,45.477682]]},// From: Rabat To: Portland"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [-122.3321,47.6062]]},// From: Portland To: Seattle"
+{type: "LineString", coordinates: [[-122.3321,47.6062], [-21.9426,64.1466]]},// From: Seattle To: Reykjavik"
+{type: "LineString", coordinates: [[-21.9426,64.1466], [36.817223,-1.286389]]},// From: Reykjavik To: Nairobi"
+{type: "LineString", coordinates: [[36.817223,-1.286389], [34.7519,0.2827]]},// From: Nairobi To: Kakamega"
+{type: "LineString", coordinates: [[34.7519,0.2827], [36.817223,-1.286389]]},// From: Kakamega To: Nairobi"
+{type: "LineString", coordinates: [[36.817223,-1.286389], [-21.9426,64.1466]]},// From: Nairobi To: Reykjavik"
+{type: "LineString", coordinates: [[-21.9426,64.1466], [-122.3321,47.6062]]},// From: Reykjavik To: Seattle"
+{type: "LineString", coordinates: [[-122.3321,47.6062], [-122.665499,45.477682]]},// From: Seattle To: Portland"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [-124.2026,41.7558]]},// From: Portland To: Crescent City"
+{type: "LineString", coordinates: [[-124.2026,41.7558], [-122.665499,45.477682]]},// From: Crescent City To: Portland"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [-74.006,40.7128]]},// From: Portland To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [11.582,48.1351]]},// From: NYC To: Munich"
+{type: "LineString", coordinates: [[11.582,48.1351], [36.817223,-1.286389]]},// From: Munich To: Nairobi"
+{type: "LineString", coordinates: [[36.817223,-1.286389], [34.7519,0.2827]]},// From: Nairobi To: Kakamega"
+{type: "LineString", coordinates: [[34.7519,0.2827], [36.817223,-1.286389]]},// From: Kakamega To: Nairobi"
+{type: "LineString", coordinates: [[36.817223,-1.286389], [19.0402,47.4979]]},// From: Nairobi To: Budapest"
+{type: "LineString", coordinates: [[19.0402,47.4979], [33.2026,0.4479]]},// From: Budapest To: Jinja"
+{type: "LineString", coordinates: [[33.2026,0.4479], [-74.006,40.7128]]},// From: Jinja To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [33.2026,0.4479]]},// From: NYC To: Jinja"
+{type: "LineString", coordinates: [[33.2026,0.4479], [30.0619,-1.9441]]},// From: Jinja To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [33.2026,0.4479]]},// From: Kigali To: Jinja"
+{type: "LineString", coordinates: [[33.2026,0.4479], [4.9041,52.3676]]},// From: Jinja To: Amsterdam"
+{type: "LineString", coordinates: [[4.9041,52.3676], [-122.4194,37.7749]]},// From: Amsterdam To: San Francisco"
+{type: "LineString", coordinates: [[-122.4194,37.7749], [-122.665499,45.477682]]},// From: San Francisco To: Portland"
+{type: "LineString", coordinates: [[-122.665499,45.477682], [4.9041,52.3676]]},// From: Portland To: Amsterdam"
+{type: "LineString", coordinates: [[4.9041,52.3676], [33.2026,0.4479]]},// From: Amsterdam To: Jinja"
+{type: "LineString", coordinates: [[33.2026,0.4479], [76.3234,32.219]]},// From: Jinja To: Dharamshala"
+{type: "LineString", coordinates: [[76.3234,32.219], [77.209,28.6139]]},// From: Dharamshala To: New Delhi"
+{type: "LineString", coordinates: [[77.209,28.6139], [72.8777,19.076]]},// From: New Delhi To: Mumbai"
+{type: "LineString", coordinates: [[72.8777,19.076], [33.2026,0.4479]]},// From: Mumbai To: Jinja"
+{type: "LineString", coordinates: [[33.2026,0.4479], [18.4241,-33.9249]]},// From: Jinja To: Cape Town"
+{type: "LineString", coordinates: [[18.4241,-33.9249], [34.7519,0.2827]]},// From: Cape Town To: Kakamega"
+{type: "LineString", coordinates: [[34.7519,0.2827], [37.3556,-3.0674]]},// From: Kakamega To: Kilimanjaro"
+{type: "LineString", coordinates: [[37.3556,-3.0674], [34.7519,0.2827]]},// From: Kilimanjaro To: Kakamega"
+{type: "LineString", coordinates: [[34.7519,0.2827], [30.0619,-1.9441]]},// From: Kakamega To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [38.7578,8.9806]]},// From: Kigali To: Addis Ababa"
+{type: "LineString", coordinates: [[38.7578,8.9806], [39.0476,12.0309]]},// From: Addis Ababa To: Lalibela"
+{type: "LineString", coordinates: [[39.0476,12.0309], [38.7578,8.9806]]},// From: Lalibela To: Addis Ababa"
+{type: "LineString", coordinates: [[38.7578,8.9806], [30.0619,-1.9441]]},// From: Addis Ababa To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [13.405,52.52]]},// From: Kigali To: Berlin"
+{type: "LineString", coordinates: [[13.405,52.52], [-74.006,40.7128]]},// From: Berlin To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [-73.82116,44.618195]]},// From: NYC To: Redford"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-74.006,40.7128]]},// From: Redford To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [139.769,35.6804]]},// From: NYC To: Tokyo"
+{type: "LineString", coordinates: [[139.769,35.6804], [100.5018,13.7563]]},// From: Tokyo To: Bangkok"
+{type: "LineString", coordinates: [[100.5018,13.7563], [96.1735,16.8409]]},// From: Bangkok To: Yangon"
+{type: "LineString", coordinates: [[96.1735,16.8409], [96.5623,20.6176]]},// From: Yangon To: Kalaw"
+{type: "LineString", coordinates: [[96.5623,20.6176], [96.1735,16.8409]]},// From: Kalaw To: Yangon"
+{type: "LineString", coordinates: [[96.1735,16.8409], [100.5018,13.7563]]},// From: Yangon To: Bangkok"
+{type: "LineString", coordinates: [[100.5018,13.7563], [139.769,35.6804]]},// From: Bangkok To: Tokyo"
+{type: "LineString", coordinates: [[139.769,35.6804], [-74.006,40.7128]]},// From: Tokyo To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [13.405,52.52]]},// From: NYC To: Berlin"
+{type: "LineString", coordinates: [[13.405,52.52], [30.0619,-1.9441]]},// From: Berlin To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [36.817223,-1.286389]]},// From: Kigali To: Nairobi"
+{type: "LineString", coordinates: [[36.817223,-1.286389], [30.0619,-1.9441]]},// From: Nairobi To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [33.2026,0.4479]]},// From: Kigali To: Jinja"
+{type: "LineString", coordinates: [[33.2026,0.4479], [30.0619,-1.9441]]},// From: Jinja To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [-78.8784,42.8864]]},// From: Kigali To: Buffalo"
+{type: "LineString", coordinates: [[-78.8784,42.8864], [30.0619,-1.9441]]},// From: Buffalo To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [-74.006,40.7128]]},// From: Kigali To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [30.0619,-1.9441]]},// From: NYC To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [32.5732,-25.9692]]},// From: Kigali To: Maputo"
+{type: "LineString", coordinates: [[32.5732,-25.9692], [35.3192,-21.9997]]},// From: Maputo To: Vilankulos"
+{type: "LineString", coordinates: [[35.3192,-21.9997], [32.5732,-25.9692]]},// From: Vilankulos To: Maputo"
+{type: "LineString", coordinates: [[32.5732,-25.9692], [31.0492,-17.8216]]},// From: Maputo To: Harare"
+{type: "LineString", coordinates: [[31.0492,-17.8216], [25.8572,-17.9243]]},// From: Harare To: Victoria Falls"
+{type: "LineString", coordinates: [[25.8572,-17.9243], [28.3228,-15.3875]]},// From: Victoria Falls To: Lusaka"
+{type: "LineString", coordinates: [[28.3228,-15.3875], [30.0619,-1.9441]]},// From: Lusaka To: Kigali"
+{type: "LineString", coordinates: [[30.0619,-1.9441], [13.405,52.52]]},// From: Kigali To: Berlin"
+{type: "LineString", coordinates: [[13.405,52.52], [2.1686,41.3874]]},// From: Berlin To: Barcelona"
+{type: "LineString", coordinates: [[2.1686,41.3874], [-9.1393,38.7223]]},// From: Barcelona To: Lisbon"
+{type: "LineString", coordinates: [[-9.1393,38.7223], [-74.006,40.7128]]},// From: Lisbon To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [-73.82116,44.618195]]},// From: NYC To: Redford"
+{type: "LineString", coordinates: [[-73.82116,44.618195], [-74.006,40.7128]]},// From: Redford To: NYC"
+{type: "LineString", coordinates: [[-74.006,40.7128], [-68.303,-54.8019]]},// From: NYC To: Ushuaia"
+{type: "LineString", coordinates: [[-68.303,-54.8019], [-58.3816,-34.6037]]},// From: Ushuaia To: Buenos Aires"
+{type: "LineString", coordinates: [[-58.3816,-34.6037], [-70.6693,-33.4489]]},// From: Buenos Aires To: Santiago"
+
+    ]
+    
+    // A path generator
+    const path = d3.geoPath()
+        .projection(projection)
+    
+    // Load world shape
+    d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson").then( function(data){
+    
+        // Draw the map
+        svg.append("g")
+            .selectAll("path")
+            .data(data.features)
+            .join("path")
+                .attr("fill", "#b8b8b8")
+                .attr("d", path)
+                .style("stroke", "#fff")
+                .style("stroke-width", 0)
+    
+        // Add the path
+        svg.selectAll("myPath")
+          .data(link)
+          .join("path")
+            .attr("d", function(d){ return path(d)})
+            .style("fill", "none")
+            .style("stroke", "orange")
+            .style("stroke-width", 1)
+    
+    })
+    </script>
