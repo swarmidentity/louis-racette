@@ -4,18 +4,12 @@ const path = require('path');
 const port = 3000;
 
 // sendFile will go here
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '/index.html'));
-  });
+var static = require('node-static');
+var http = require('http');
 
-app.get('/joyplot_languages.html', function(req, res) {
-  res.sendFile(path.join(__dirname, '/joyplot_languages.html'));
-});
+var file = new(static.Server)(__dirname);
 
-app.get('/coding_language_history.csv', function(req, res) {
-  res.sendFile(path.join(__dirname, '/coding_language_history.csv'));
-});
-
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
-});
+//Serve all static files in this folder
+http.createServer(function (req, res) {
+  file.serve(req, res);
+}).listen(8080);
