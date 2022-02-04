@@ -23,15 +23,15 @@ Hello Force Graph
 
     
 
- chart = ForceGraph(data, {
-    nodeId: d => d.id,
-    nodeGroup: d => d.group,
-    nodeTitle: d => `${d.id}\n${d.group}`,
-    linkStrokeWidth: l => Math.sqrt(l.value),
-    width: 500,
-    height: 500,
-    invalidation: null // a promise to stop the simulation when the cell is re-run
-  })
+      var chart = ForceGraph(data, {
+          nodeId: d => d.id,
+          nodeGroup: d => d.group,
+          nodeTitle: d => `${d.id}\n${d.group}`,
+          linkStrokeWidth: l => Math.sqrt(l.value),
+          width: 500,
+          height: 500,
+          invalidation: null // a promise to stop the simulation when the cell is re-run
+        })
 
   }
   // Copyright 2021 Observable, Inc.
@@ -61,8 +61,8 @@ function ForceGraph({
     linkStrokeLinecap = "round", // link stroke linecap
     linkStrength,
     colors = d3.schemeTableau10, // an array of color strings, for the node groups
-    width = 640, // outer width, in pixels
-    height = 400, // outer height, in pixels
+    width = 500, // outer width, in pixels
+    height = 500, // outer height, in pixels
     invalidation // when this promise resolves, stop the simulation
   } = {}) {
     // Compute values.
@@ -106,8 +106,8 @@ function ForceGraph({
     
     var svg = d3.select("#my_dataviz")
       .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width )
+        .attr("height", height)
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
@@ -123,16 +123,36 @@ function ForceGraph({
       .data(links)
       .join("line");
   
+    // const node = svg.append("g")
+    //     .attr("fill", nodeFill)
+    //     .attr("stroke", nodeStroke)
+    //     .attr("stroke-opacity", nodeStrokeOpacity)
+    //     .attr("stroke-width", nodeStrokeWidth)
+    //   .selectAll("circle")
+    //   .data(nodes)
+    //   .join("circle")
+    //     .attr("r", nodeRadius)
+    //   .join("text")
+    //   .attr("x", 8)
+    //   .attr("y", "0.31em")
+    //   .text(d => d.id)
+    //     .call(drag(simulation));
+
+
     const node = svg.append("g")
-        .attr("fill", nodeFill)
+            .attr("fill", nodeFill)
         .attr("stroke", nodeStroke)
         .attr("stroke-opacity", nodeStrokeOpacity)
         .attr("stroke-width", nodeStrokeWidth)
-      .selectAll("circle")
-      .data(nodes)
-      .join("circle")
-        .attr("r", nodeRadius)
-        .call(drag(simulation));
+        .selectAll("rect").data(nodes).join("rect")
+    .attr("width", nodeRadius)
+    .attr("height", nodeRadius)
+    .call(drag(simulation));
+
+
+    const text = svg.append("g").selectAll("text").data(nodes).join("text").text(d => d.id).call(drag(simulation));;
+
+        
   
     if (W) link.attr("stroke-width", ({index: i}) => W[i]);
     if (L) link.attr("stroke", ({index: i}) => L[i]);
@@ -152,8 +172,12 @@ function ForceGraph({
         .attr("y2", d => d.target.y);
   
       node
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y);
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
+
+      text
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
     }
   
     function drag(simulation) {    
