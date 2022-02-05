@@ -25,6 +25,7 @@
       var chart = ForceGraph(data, {
           nodeId: d => d.id,
           nodeGroup: d => d.group,
+          nodeImage: d => d.image,
           nodeTitle: d => `${d.id}\n${d.group}`,
           linkStrokeWidth: l => Math.sqrt(l.value),
           width: 700,
@@ -46,6 +47,7 @@ function ForceGraph({
     nodeGroup, // given d in nodes, returns an (ordinal) value for color
     nodeGroups, // an array of ordinal values representing the node groups
     nodeTitle, // given d in nodes, a title string
+    nodeImage,
     nodeFill = "currentColor", // node stroke fill (if not using a group color encoding)
     nodeStroke = "#fff", // node stroke color
     nodeStrokeWidth = 1.5, // node stroke width, in pixels
@@ -70,6 +72,7 @@ function ForceGraph({
     const LT = d3.map(links, linkTarget).map(intern);
     if (nodeTitle === undefined) nodeTitle = (_, i) => N[i];
     const T = nodeTitle == null ? null : d3.map(nodes, nodeTitle);
+    const I = nodeImage == null ? null : d3.map(nodes, nodeImage);
     const G = nodeGroup == null ? null : d3.map(nodes, nodeGroup).map(intern);
     const W = typeof linkStrokeWidth !== "function" ? null : d3.map(links, linkStrokeWidth);
     const L = typeof linkStroke !== "function" ? null : d3.map(links, linkStroke);
@@ -142,27 +145,37 @@ function ForceGraph({
     //     .call(drag(simulation));
 
 
+//     nodeEnter.append("svg:image")
+// .attr('x', -9)
+// .attr('y', -12)
+// .attr('width', 20)
+// .attr('height', 24)
+// .attr("xlink:href", "resources/images/check.png")
+
+
     const node = svg.append("g")
             .attr("fill", nodeFill)
         .attr("stroke", nodeStroke)
         .attr("stroke-opacity", nodeStrokeOpacity)
         .attr("stroke-width", nodeStrokeWidth)
-        .selectAll("rect").data(nodes).join("rect")
+        .selectAll("image").data(nodes).join("svg:image")
+    .attr("href", nodeImage)
     .attr("width", nodeWidth * 2)
     .attr("height", nodeWidth)
     .call(drag(simulation));
 
 
-    const text = svg.append("g").selectAll("text")
-    .data(nodes).join("text")
-    .style("font", "14px times")
-    .text(d => d.id).call(drag(simulation));;
+    // const text = svg.append("g").selectAll("text")
+    // .data(nodes).join("text")
+    // .style("font", "14px times")
+    // .text(d => d.id).call(drag(simulation));;
 
         
   
     if (W) link.attr("stroke-width", ({index: i}) => W[i]);
     if (L) link.attr("stroke", ({index: i}) => L[i]);
     if (G) node.attr("fill", ({index: i}) => color(G[i]));
+    if (I) node.attr("href", ({index: i}) => I[i]);
     if (T) node.append("title").text(({index: i}) => T[i]);
     if (invalidation != null) invalidation.then(() => simulation.stop());
   
