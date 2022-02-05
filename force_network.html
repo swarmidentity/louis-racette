@@ -25,6 +25,7 @@
       var chart = ForceGraph(data, {
           nodeId: d => d.id,
           nodeGroup: d => d.group,
+          nodeFill: "#fff",
           nodeImage: d => d.image,
           nodeSize: d => d.strength,
           nodeTitle: d => `${d.id}\n${d.group}`,
@@ -167,7 +168,11 @@ function ForceGraph({
         .attr("stroke", nodeStroke)
         .attr("stroke-opacity", nodeStrokeOpacity)
         .attr("stroke-width", nodeStrokeWidth)
-        .selectAll("image").data(nodes).join("svg:image")
+        .selectAll("circle").data(nodes).join("circle")
+        .attr("r", nodeSizeIncrement);
+
+        const images = svg.append("g").selectAll("image")
+        .data(nodes).join("svg:image")
     .attr("href", nodeImage)
     .attr("width", nodeSizeIncrement * 2 * 2.0)
     .attr("height", nodeSizeIncrement * 2.0)
@@ -183,10 +188,11 @@ function ForceGraph({
   
     if (W) link.attr("stroke-width", ({index: i}) => W[i]);
     if (C) link.attr("stroke", ({index: i}) => linkColor(C[i]));
-    if (G) node.attr("fill", ({index: i}) => nodeColor(G[i]));
-    if (I) node.attr("href", ({index: i}) => I[i]);
-    if (S) node.attr("width", ({index: i}) => S[i] * nodeSizeIncrement * 2);
-    if (S) node.attr("height", ({index: i}) => S[i] * nodeSizeIncrement);
+    if (G) node.attr("stroke", ({index: i}) => nodeColor(G[i]));
+    if (I) images.attr("href", ({index: i}) => I[i]);
+    if (S) node.attr("r", ({index: i}) => S[i] * nodeSizeIncrement *0.6125);
+    if (S) images.attr("width", ({index: i}) => S[i] * nodeSizeIncrement * 2);
+    if (S) images.attr("height", ({index: i}) => S[i] * nodeSizeIncrement);
     if (T) node.append("title").text(({index: i}) => T[i]);
     if (invalidation != null) invalidation.then(() => simulation.stop());
   
@@ -201,13 +207,13 @@ function ForceGraph({
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
   
-      node
+      images
         .attr("x", d =>  d.x - S[d.index] * nodeSizeIncrement)
         .attr("y", d =>   d.y -   S[d.index]  * nodeSizeIncrement / 2);
 
-      // text
-      //   .attr("x", d => d.x - nodeSizeIncrement)
-      //   .attr("y", d => d.y);
+      node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
     }
   
     function drag(simulation) {    
