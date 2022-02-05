@@ -150,7 +150,10 @@ function ForceGraph({
     .call(drag(simulation));
 
 
-    const text = svg.append("g").selectAll("text").data(nodes).join("text").text(d => d.id).call(drag(simulation));;
+    const text = svg.append("g").selectAll("text")
+    .data(nodes).join("text")
+    .style("font", "14px times")
+    .text(d => d.id).call(drag(simulation));;
 
         
   
