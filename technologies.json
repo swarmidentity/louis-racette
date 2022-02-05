@@ -276,265 +276,317 @@
         {
             "source": "DevOps",
             "target": "Azure CI/CD",
+            "group":7,
             "value": 10
         },
         {
             "source": "DevOps",
             "target": "AI",
-            "value": 10
+            "group":8,
+            "value": 1
         },
         {
             "source": "DevOps",
             "target": "Docker",
+            "group":7,
             "value": 10
         },
         {
             "source": "DevOps",
             "target": "Kubernetes",
+            "group":7,
             "value": 10
         },
         {
             "source": "DevOps",
             "target": "ElasticSearch",
+            "group":7,
             "value": 10
         },
         {
             "source": "DevOps",
             "target": "Git",
+            "group":7,
             "value": 10
         },
         {
             "source": "DevOps",
             "target": "Databases",
-            "value": 10
+            "group":8,
+            "value": 1
         },
         {
             "source": "DevOps",
             "target": "Frontend",
-            "value": 10
+            "group":8,
+            "value": 1
         },
         {
             "source": "DevOps",
             "target": "Backend",
-            "value": 10
+            "group":8,
+            "value": 1
         },
         {
             "source": "Firmware",
             "target": "DevOps",
-            "value": 10
+            "group":8,
+            "value": 1
         },
         {
             "source": "DevOps",
             "target": "Databases",
-            "value": 10
+            "group":8,
+            "value": 1
         },
         {
             "source": "AI",
             "target": "Tensorflow",
+            "group":1,
             "value": 10
         },
         {
             "source": "Tensorflow",
             "target": "Tensorflow Lite",
-            "value": 1
+            "group":1,
+            "value": 10
         },
         {
             "source": "Mobile",
             "target": "Tensorflow Lite",
-            "value": 1
+            "group":1,
+            "value": 5
         },
         {
             "source": "Mobile",
             "target": "Android SDK",
-            "value": 1
+            "group":2,
+            "value": 10
         },
         {
             "source": "Mobile",
             "target": "Flutter",
+            "group":2,
             "value": 10
         },
         {
             "source": "Android SDK",
             "target": "Flutter",
+            "group":2,
             "value": 10
         },
         {
             "source": "Mobile",
             "target": "PWAs",
+            "group":2,
             "value": 10
         },
         {
             "source": "Backend",
             "target": "C#",
+            "group":3,
             "value": 10
         },
         {
             "source": "C#",
             "target": "ASP.NET",
+            "group":3,
             "value": 10
         },
         {
             "source": "Backend",
             "target": "C++",
+            "group":3,
             "value": 10
         },
         {
             "source": "Backend",
             "target": "Java",
+            "group":3,
             "value": 10
         },
         {
             "source": "Java",
             "target": "Android SDK",
-            "value": 10
+            "group":3,
+            "value": 5
         },
         {
             "source": "Backend",
             "target": "Python",
+            "group":3,
             "value": 10
         },
         {
             "source": "Python",
             "target": "Tensorflow",
-            "value": 10
+            "group":1,
+            "value": 5
         },
         {
             "source": "Backend",
             "target": "Perl",
+            "group":3,
             "value": 10
         },
         {
             "source": "Backend",
             "target": "PHP",
+            "group":3,
             "value": 10
         },
         {
             "source": "Backend",
             "target": "C++",
+            "group":3,
             "value": 10
         },
         {
             "source": "Backend",
             "target": "Node.JS",
+            "group":3,
             "value": 10
         },
         {
             "source": "Frontend",
             "target": "JavaScript",
+            "group":4,
             "value": 10
         },
         {
             "source": "Node.JS",
             "target": "JavaScript",
+            "group":4,
             "value": 10
         },
         {
             "source": "Frontend",
             "target": "HTML",
+            "group":4,
             "value": 10
         },
         {
             "source": "Frontend",
             "target": "CSS",
+            "group":4,
             "value": 10
         },
         {
             "source": "Frontend",
             "target": "React",
+            "group":4,
             "value": 10
         },
         {
             "source": "Frontend",
             "target": "Angular",
+            "group":4,
             "value": 10
         },
         {
             "source": "Firmware",
             "target": "Arduino",
+            "group":5,
             "value": 10
         },
         {
             "source": "Firmware",
             "target": "Embedded C (PIC)",
+            "group":5,
             "value": 10
         },
         {
             "source": "Firmware",
             "target": "ARM",
+            "group":5,
             "value": 10
         },
         {
             "source": "Firmware",
             "target": "x86",
+            "group":5,
             "value": 10
         },
         {
             "source": "Firmware",
             "target": "VHDL",
+            "group":5,
             "value": 10
         },
         {
             "source": "Databases",
             "target": "SQL Server",
+            "group":6,
             "value": 10
         },
         {
             "source": "Databases",
             "target": "Couchbase",
+            "group":6,
             "value": 10
         },
         {
             "source": "Databases",
             "target": "POSTGres",
+            "group":6,
             "value": 10
         },
         {
             "source": "Databases",
             "target": "MySQL",
+            "group":6,
             "value": 10
         },
         {
             "source": "Databases",
             "target": "SQLite",
+            "group":6,
             "value": 10
         },
         
         {
             "source": "Terminals",
             "target": "BASH",
+            "group":6,
             "value": 10
         },
         {
             "source": "Docker",
             "target": "BASH",
+            "group":6,
             "value": 10
         },
         {
             "source": "Terminals",
             "target": "CMD",
+            "group":6,
             "value": 10
         },
         {
             "source": "Terminals",
             "target": "Powershell",
+            "group":6,
             "value": 10
         },
         
         {
             "source": "Databases",
             "target": "Redis",
+            "group":6,
             "value": 10
         },
         
         {
             "source": "JavaScript",
             "target": "Angular",
-            "value": 10
+            "group":4,
+            "value": 5
         },
         {
             "source": "React",
             "target": "JavaScript",
-            "value": 10
+            "group":4,
+            "value": 5
         }
     ]
 }
