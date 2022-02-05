@@ -1,0 +1,495 @@
+{
+    "nodes": [
+        
+        {
+            "id": "DevOps",
+            "strength": 5,
+            "group": 7
+        },
+        {
+            "id": "AI",
+            "strength": 7,
+            "group": 1
+        },
+        {
+            "id": "Tensorflow",
+            "strength": 7,
+            "group": 1
+        },
+        {
+            "id": "Tensorflow Lite",
+            "strength": 5,
+            "group": 1
+        },
+        {
+            "id": "Mobile",
+            "strength": 5,
+            "group": 2
+        },
+        {
+            "id": "Native Android",
+            "strength": 5,
+            "group": 2
+        },
+        {
+            "id": "Flutter",
+            "strength": 5,
+            "group": 2
+        },
+        {
+            "id": "Progressive Web Apps",
+            "strength": 5,
+            "group": 2
+        },
+        {
+            "id": "Backend Languages",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "C#",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "ASP.NET",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "C++",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "Java",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "Python",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "Perl",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "PHP",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "Node.JS",
+            "strength": 5,
+            "group": 3
+        },
+        {
+            "id": "Frontend Languages",
+            "strength": 5,
+            "group": 4
+        },
+        {
+            "id": "JavaScript",
+            "strength": 5,
+            "group": 4
+        },
+        {
+            "id": "HTML",
+            "strength": 5,
+            "group": 4
+        },
+        {
+            "id": "CSS",
+            "strength": 5,
+            "group": 4
+        },
+        {
+            "id": "React",
+            "strength": 5,
+            "group": 4
+        },
+        {
+            "id": "Angular",
+            "strength": 5,
+            "group": 4
+        },
+        {
+            "id": "Firmware",
+            "strength": 5,
+            "group": 5
+        },
+        {
+            "id": "Arduino",
+            "strength": 5,
+            "group": 5
+        },
+        {
+            "id": "ARM",
+            "strength": 5,
+            "group": 5
+        },
+        {
+            "id": "x86",
+            "strength": 5,
+            "group": 5
+        },
+        {
+            "id": "VHDL",
+            "strength": 5,
+            "group": 5
+        },
+        {
+            "id": "Embedded C (PIC)",
+            "strength": 5,
+            "group": 5
+        },
+        {
+            "id": "Databases",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "SQL Server",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "SQLite",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "Couchbase",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "Redis",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "POSTGres",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "MySQL",
+            "strength": 5,
+            "group": 6
+        },
+        {
+            "id": "Azure CI/CD",
+            "strength": 5,
+            "group": 7
+        },
+        {
+            "id": "Docker",
+            "strength": 5,
+            "group": 7
+        },
+        {
+            "id": "Kubernetes",
+            "strength": 5,
+            "group": 7
+        },
+        {
+            "id": "ElasticSearch",
+            "strength": 5,
+            "group": 7
+        },
+        {
+            "id": "Git",
+            "strength": 5,
+            "group": 7
+        },
+        {
+            "id": "Terminals",
+            "strength": 5,
+            "group": 8
+        },
+        {
+            "id": "BASH",
+            "strength": 5,
+            "group": 8
+        },     
+        {
+            "id": "CMD",
+            "strength": 5,
+            "group": 8
+        },     
+        {
+            "id": "Powershell",
+            "strength": 5,
+            "group": 8
+        }
+    ],
+    "links": [
+        {
+            "source": "DevOps",
+            "target": "Azure CI/CD",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "AI",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Docker",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Kubernetes",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "ElasticSearch",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Git",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Databases",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Frontend Languages",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Backend Languages",
+            "value": 10
+        },
+        {
+            "source": "Firmware",
+            "target": "DevOps",
+            "value": 10
+        },
+        {
+            "source": "DevOps",
+            "target": "Databases",
+            "value": 10
+        },
+        {
+            "source": "AI",
+            "target": "Tensorflow",
+            "value": 10
+        },
+        {
+            "source": "Tensorflow",
+            "target": "Tensorflow Lite",
+            "value": 1
+        },
+        {
+            "source": "Mobile",
+            "target": "Tensorflow Lite",
+            "value": 1
+        },
+        {
+            "source": "Mobile",
+            "target": "Native Android",
+            "value": 1
+        },
+        {
+            "source": "Mobile",
+            "target": "Flutter",
+            "value": 10
+        },
+        {
+            "source": "Native Android",
+            "target": "Flutter",
+            "value": 10
+        },
+        {
+            "source": "Mobile",
+            "target": "Progressive Web Apps",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "C#",
+            "value": 10
+        },
+        {
+            "source": "C#",
+            "target": "ASP.NET",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "C++",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "Java",
+            "value": 10
+        },
+        {
+            "source": "Java",
+            "target": "Native Android",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "Python",
+            "value": 10
+        },
+        {
+            "source": "Python",
+            "target": "Tensorflow",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "Perl",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "PHP",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "C++",
+            "value": 10
+        },
+        {
+            "source": "Backend Languages",
+            "target": "Node.JS",
+            "value": 10
+        },
+        {
+            "source": "Frontend Languages",
+            "target": "JavaScript",
+            "value": 10
+        },
+        {
+            "source": "Node.JS",
+            "target": "JavaScript",
+            "value": 10
+        },
+        {
+            "source": "Frontend Languages",
+            "target": "HTML",
+            "value": 10
+        },
+        {
+            "source": "Frontend Languages",
+            "target": "CSS",
+            "value": 10
+        },
+        {
+            "source": "Frontend Languages",
+            "target": "React",
+            "value": 10
+        },
+        {
+            "source": "Frontend Languages",
+            "target": "Angular",
+            "value": 10
+        },
+        {
+            "source": "Firmware",
+            "target": "Arduino",
+            "value": 10
+        },
+        {
+            "source": "Firmware",
+            "target": "Embedded C (PIC)",
+            "value": 10
+        },
+        {
+            "source": "Firmware",
+            "target": "ARM",
+            "value": 10
+        },
+        {
+            "source": "Firmware",
+            "target": "x86",
+            "value": 10
+        },
+        {
+            "source": "Firmware",
+            "target": "VHDL",
+            "value": 10
+        },
+        {
+            "source": "Databases",
+            "target": "SQL Server",
+            "value": 10
+        },
+        {
+            "source": "Databases",
+            "target": "Couchbase",
+            "value": 10
+        },
+        {
+            "source": "Databases",
+            "target": "POSTGres",
+            "value": 10
+        },
+        {
+            "source": "Databases",
+            "target": "MySQL",
+            "value": 10
+        },
+        {
+            "source": "Databases",
+            "target": "SQLite",
+            "value": 10
+        },
+        
+        {
+            "source": "Terminals",
+            "target": "BASH",
+            "value": 10
+        },
+        {
+            "source": "Docker",
+            "target": "BASH",
+            "value": 10
+        },
+        {
+            "source": "Terminals",
+            "target": "CMD",
+            "value": 10
+        },
+        {
+            "source": "Terminals",
+            "target": "Powershell",
+            "value": 10
+        },
+        
+        {
+            "source": "Databases",
+            "target": "Redis",
+            "value": 10
+        },
+        
+        {
+            "source": "JavaScript",
+            "target": "Angular",
+            "value": 10
+        },
+        {
+            "source": "React",
+            "target": "JavaScript",
+            "value": 10
+        }
+    ]
+}
