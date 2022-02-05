@@ -95,6 +95,9 @@ function ForceGraph({
         .force("link", forceLink)
         .force("charge", forceNode)
         .force("center",  d3.forceCenter())
+        .force('collision', d3.forceCollide().radius(function(d) {
+    return nodeWidth
+  }))
         .on("tick", ticked);
   
     // const svg =  d3.create("svg")

@@ -27,7 +27,7 @@
             "group": 2
         },
         {
-            "id": "Native Android",
+            "id": "Android SDK",
             "strength": 5,
             "group": 2
         },
@@ -37,12 +37,12 @@
             "group": 2
         },
         {
-            "id": "Progressive Web Apps",
+            "id": "PWAs",
             "strength": 5,
             "group": 2
         },
         {
-            "id": "Backend Languages",
+            "id": "Backend",
             "strength": 5,
             "group": 3
         },
@@ -87,7 +87,7 @@
             "group": 3
         },
         {
-            "id": "Frontend Languages",
+            "id": "Frontend",
             "strength": 5,
             "group": 4
         },
@@ -265,12 +265,12 @@
         },
         {
             "source": "DevOps",
-            "target": "Frontend Languages",
+            "target": "Frontend",
             "value": 10
         },
         {
             "source": "DevOps",
-            "target": "Backend Languages",
+            "target": "Backend",
             "value": 10
         },
         {
@@ -300,7 +300,7 @@
         },
         {
             "source": "Mobile",
-            "target": "Native Android",
+            "target": "Android SDK",
             "value": 1
         },
         {
@@ -309,17 +309,17 @@
             "value": 10
         },
         {
-            "source": "Native Android",
+            "source": "Android SDK",
             "target": "Flutter",
             "value": 10
         },
         {
             "source": "Mobile",
-            "target": "Progressive Web Apps",
+            "target": "PWAs",
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "C#",
             "value": 10
         },
@@ -329,22 +329,22 @@
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "C++",
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "Java",
             "value": 10
         },
         {
             "source": "Java",
-            "target": "Native Android",
+            "target": "Android SDK",
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "Python",
             "value": 10
         },
@@ -354,27 +354,27 @@
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "Perl",
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "PHP",
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "C++",
             "value": 10
         },
         {
-            "source": "Backend Languages",
+            "source": "Backend",
             "target": "Node.JS",
             "value": 10
         },
         {
-            "source": "Frontend Languages",
+            "source": "Frontend",
             "target": "JavaScript",
             "value": 10
         },
@@ -384,22 +384,22 @@
             "value": 10
         },
         {
-            "source": "Frontend Languages",
+            "source": "Frontend",
             "target": "HTML",
             "value": 10
         },
         {
-            "source": "Frontend Languages",
+            "source": "Frontend",
             "target": "CSS",
             "value": 10
         },
         {
-            "source": "Frontend Languages",
+            "source": "Frontend",
             "target": "React",
             "value": 10
         },
         {
-            "source": "Frontend Languages",
+            "source": "Frontend",
             "target": "Angular",
             "value": 10
         },
