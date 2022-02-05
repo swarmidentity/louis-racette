@@ -7,7 +7,6 @@
 <!-- Create a div where the graph will take place -->
 <div id="chart"></div>
 <div id="my_dataviz"></div>
-Hello Force Graph
 <script type="module">
 
   import * as d3 from "https://cdn.skypack.dev/d3@7";
@@ -15,8 +14,8 @@ Hello Force Graph
   const div = d3.selectAll("div");
 
   var margin = {top: 80, right: 30, bottom: 50, left:110},
-        width = 500 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 400 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
   d3.json("/miserables.json").then(function(data) {
 
@@ -28,8 +27,8 @@ Hello Force Graph
           nodeGroup: d => d.group,
           nodeTitle: d => `${d.id}\n${d.group}`,
           linkStrokeWidth: l => Math.sqrt(l.value),
-          width: 500,
-          height: 500,
+          width: 400,
+          height: 400,
           invalidation: null // a promise to stop the simulation when the cell is re-run
         })
 

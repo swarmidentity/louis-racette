@@ -185,6 +185,16 @@ function RadarChart(id, data, options) {
 		.style("fill", "none")
 		.style("filter" , "url(#glow)");		
 	
+    //Add class text - a bit of a hack, this is a once-off
+    blobWrapper.append("text").text(function(d,i) { 
+        if (i == 0) return "Startups (Developer)";
+        else return "Large Teams (DevOps)"
+    })
+    .style("stroke", function(d,i) { return cfg.color(i); })
+    .attr("x", - width/2 - margin.left)
+    .attr("y", function(d,i) { return (-height/2 - margin.top/2) + i * 20 });
+
+
 	//Append the circles
 	blobWrapper.selectAll(".radarCircle")
 		.data(function(d,i) { return d; })
