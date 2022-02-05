@@ -26,6 +26,7 @@
           nodeId: d => d.id,
           nodeGroup: d => d.group,
           nodeImage: d => d.image,
+          nodeSize: d => d.strength,
           nodeTitle: d => `${d.id}\n${d.group}`,
           linkStrokeWidth: l => Math.sqrt(l.value),
           width: 700,
@@ -48,11 +49,12 @@ function ForceGraph({
     nodeGroups, // an array of ordinal values representing the node groups
     nodeTitle, // given d in nodes, a title string
     nodeImage,
+    nodeSize,
     nodeFill = "currentColor", // node stroke fill (if not using a group color encoding)
     nodeStroke = "#fff", // node stroke color
     nodeStrokeWidth = 1.5, // node stroke width, in pixels
     nodeStrokeOpacity = 1, // node stroke opacity
-    nodeWidth = 30, // node radius, in pixels
+    nodeSizeIncrement = 30, // node radius, in pixels
     nodeStrength,
     linkSource = ({source}) => source, // given d in links, returns a node identifier string
     linkTarget = ({target}) => target, // given d in links, returns a node identifier string
@@ -73,6 +75,7 @@ function ForceGraph({
     if (nodeTitle === undefined) nodeTitle = (_, i) => N[i];
     const T = nodeTitle == null ? null : d3.map(nodes, nodeTitle);
     const I = nodeImage == null ? null : d3.map(nodes, nodeImage);
+    const S = nodeSize == null ? null : d3.map(nodes, nodeSize);
     const G = nodeGroup == null ? null : d3.map(nodes, nodeGroup).map(intern);
     const W = typeof linkStrokeWidth !== "function" ? null : d3.map(links, linkStrokeWidth);
     const L = typeof linkStroke !== "function" ? null : d3.map(links, linkStroke);
@@ -99,7 +102,7 @@ function ForceGraph({
         .force("charge", forceNode)
         .force("center",  d3.forceCenter())
         .force('collision', d3.forceCollide().radius(function(d) {
-    return nodeWidth
+    return nodeSizeIncrement * 1.25 //Maximum size
   }))
         .on("tick", ticked);
   
@@ -160,8 +163,8 @@ function ForceGraph({
         .attr("stroke-width", nodeStrokeWidth)
         .selectAll("image").data(nodes).join("svg:image")
     .attr("href", nodeImage)
-    .attr("width", nodeWidth * 2)
-    .attr("height", nodeWidth)
+    .attr("width", nodeSizeIncrement * 2 * 2.0)
+    .attr("height", nodeSizeIncrement * 2.0)
     .call(drag(simulation));
 
 
@@ -176,6 +179,8 @@ function ForceGraph({
     if (L) link.attr("stroke", ({index: i}) => L[i]);
     if (G) node.attr("fill", ({index: i}) => color(G[i]));
     if (I) node.attr("href", ({index: i}) => I[i]);
+    if (S) node.attr("width", ({index: i}) => S[i] * nodeSizeIncrement * 2);
+    if (S) node.attr("height", ({index: i}) => S[i] * nodeSizeIncrement);
     if (T) node.append("title").text(({index: i}) => T[i]);
     if (invalidation != null) invalidation.then(() => simulation.stop());
   
@@ -191,11 +196,11 @@ function ForceGraph({
         .attr("y2", d => d.target.y);
   
       node
-        .attr("x", d => d.x - nodeWidth)
-        .attr("y", d => d.y - nodeWidth/2);
+        .attr("x", d =>  d.x - S[d.index] * nodeSizeIncrement)
+        .attr("y", d =>   d.y -   S[d.index]  * nodeSizeIncrement / 2);
 
       text
-        .attr("x", d => d.x - nodeWidth)
+        .attr("x", d => d.x - nodeSizeIncrement)
         .attr("y", d => d.y);
     }
   
