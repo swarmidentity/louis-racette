@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+		<title>Smoothed D3.js Radar Chart</title>
+
+		<!-- Google fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+		<!-- D3.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		
+		<style>
+			body {
+				font-family: 'Open Sans', sans-serif;
+				font-size: 11px;
+				font-weight: 300;
+				fill: #242424;
+				text-align: center;
+				text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+				cursor: default;
+			}
+			
+			.legend {
+				font-family: 'Raleway', sans-serif;
+				fill: #333333;
+			}
+			
+			.tooltip {
+				fill: #333333;
+			}
+		</style>
+	
+	</head>
+	<body>
+
+		<div class="radarChart"></div>
+
+		<script src="radarChart.js"></script>	
+		<script>
+      
+      /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+      
+			////////////////////////////////////////////////////////////// 
+			//////////////////////// Set-Up ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var margin = {top: 100, right: 100, bottom: 100, left: 100},
+				width = 400,
+				height = 400;
+					
+			////////////////////////////////////////////////////////////// 
+			////////////////////////// Data ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+            //This graph is a bit tortured, essentially I'm trying to show things with their opposites
+			var data = [
+					  [//When I work with Startups
+						{axis:"Jack of All Trades",value:0.9},
+						{axis:"Tear Down and Start Fresh",value:0.5},
+						{axis:"Early Adopter",value:0.25},
+						{axis:"Fast Hacker",value:0.9},
+						{axis:"Go Solo",value:0.9},
+                        //Opposite categories
+						{axis:"Specialist",value:0.1},
+						{axis:"Patch What We Have",value:0.5},
+						{axis:"Tried and True",value:0.75},
+						{axis:"Thorough Best Practices",value:0.1},
+						{axis:"Team Player",value:0.1},	
+					  ],[//When I work with Large Teams
+                      {axis:"Jack of All Trades",value:0.7},
+						{axis:"Tear Down and Start Fresh",value:0.1},
+						{axis:"Early Adopter",value:0.1},
+						{axis:"Fast Hacker",value:0.5},
+						{axis:"Go Solo",value:0.3},
+                        //Opposite categories
+						{axis:"Specialist",value:0.3},
+						{axis:"Patch What We Have",value:0.9},
+						{axis:"Tried and True",value:0.9},
+						{axis:"Thorough Best Practices",value:0.5},
+						{axis:"Team Player",value:0.7},	
+					  ]
+					];
+			////////////////////////////////////////////////////////////// 
+			//////////////////// Draw the Chart ////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var color = d3.scale.ordinal()
+				.range(["#EDC951","#CC333F","#00A0B0"]);
+				
+			var radarChartOptions = {
+			  w: width,
+			  h: height,
+			  margin: margin,
+			  maxValue: 1.0,
+			  levels: 5,
+			  roundStrokes: true,
+			  color: color
+			};
+			//Call function to draw the Radar chart
+			RadarChart(".radarChart", data, radarChartOptions);
+		</script>
+	</body>
+</html>
