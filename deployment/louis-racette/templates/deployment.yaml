@@ -12,6 +12,14 @@ spec:
     matchLabels:
       com.louisracette.instance: {{ .Release.Name }}-resume
   template:
+    metadata:
+      labels:
+        com.louisracette.project: services
+        com.louisracette.app: nestjs
+        com.louisracette.instance: {{ .Release.Name }}-resume
+      annotations:
+        co.elastic.logs/enabled: "true"
+        co.elastic.logs/json.keys_under_root: "true"
     spec:
       containers:
         - name: {{ .Chart.Name }}
