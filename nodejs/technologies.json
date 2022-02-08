@@ -118,25 +118,25 @@
         {
             "id": "HTML",
             "image":"/assets/html.png",
-            "strength": 0.5,
+            "strength": 0.75,
             "group": 4
         },
         {
             "id": "CSS",
             "image":"/assets/css.png",
-            "strength": 0.5,
+            "strength": 0.75,
             "group": 4
         },
         {
             "id": "React",
             "image":"/assets/react.png",
-            "strength": 0.5,
+            "strength": 0.75,
             "group": 4
         },
         {
             "id": "Angular",
             "image":"/assets/angular.png",
-            "strength": 0.5,
+            "strength": 0.75,
             "group": 4
         },
         {

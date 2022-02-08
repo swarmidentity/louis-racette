@@ -109,7 +109,7 @@ function ForceGraph({
         .force("charge", forceNode)
         .force("center",  d3.forceCenter())
         .force('collision', d3.forceCollide().radius(function(d) {
-    return nodeSizeIncrement * 1.25 //Maximum size
+    return nodeSizeIncrement * 1.3 //Maximum size
   }))
         .on("tick", ticked);
   
@@ -214,6 +214,10 @@ function ForceGraph({
       node
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
+
+      // text
+      //   .attr("x", d => d.x)
+      //   .attr("y", d => d.y);
     }
   
     function drag(simulation) {    
