@@ -46,10 +46,19 @@ stream {
       #TCP traffic will be forwarded to the specified server
       proxy_pass 192.168.49.2:8443;       
   }
+  server {
+      listen 65.21.153.19:88;
+      #Hack: forward from non-standard port to nodeport
+      proxy_pass 192.168.49.2:30110;       
+  }
 }
 ```
 
 ## Setup Lens if desired
+
+## Install helm
+
+https://helm.sh/docs/intro/install/
 
 ## Setup an ingress rule for the site
 
