@@ -34,7 +34,7 @@ steps:
     displayName: "Install Node.js"
 
   - script: npm ci
-    workingDirectory: "$(workingDir)"
+    workingDirectory: "$(workingDir)/nodejs"
     displayName: "npm install"
 
   # - script: |
@@ -72,8 +72,8 @@ steps:
       containerRegistry: 'DockerHub'
       repository: 'swarmidentity/resume'
       command: 'build'
-      buildContext: '$(workingDir)'
-      Dockerfile: '$(workingDir)/Dockerfile'
+      buildContext: '$(workingDir)/nodejs'
+      Dockerfile: '$(workingDir)/nodejs/Dockerfile'
       tags: |
         $(IMAGE_TAGS)
   
