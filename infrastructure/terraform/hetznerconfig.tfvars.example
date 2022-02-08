@@ -1,0 +1,6 @@
+hcloud_token = "#{HETZNER_TOKEN}#"
+admin_password = "#{ADMIN_PASSWORD}#"
+hetznerDNS_APIKey = "#{HETZNERDNS_API_KEY}#"
+linux_image_id = "#{LINUX_IMAGE_ID}#"
+hetznerDNS_Zone = "#{HETZNER_DNS_ZONE}#"
+Azure_DevOps_PAT="#{AZURE_DEVOPS_PAT}#"

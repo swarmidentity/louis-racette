@@ -1,0 +1,117 @@
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+
+
+pr:
+  - master
+  - develop
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  buildConfiguration: 'Release'
+  workingDir: $(System.DefaultWorkingDirectory)
+
+steps:
+  - script: |
+      VERSION_TAG=`git describe --abbrev=0 --tags`
+      echo "##vso[task.setvariable variable=VERSION_TAG]$VERSION_TAG"
+
+      IMAGE_TAGS="${VERSION_TAG}_$(Build.SourceVersion)"
+      echo "##vso[task.setvariable variable=IMAGE_SEMANTIC_HASH]$IMAGE_TAGS"
+      echo Tags: $IMAGE_TAGS
+      echo "##vso[task.setvariable variable=IMAGE_TAGS]$IMAGE_TAGS"
+    displayName: Get git tag
+
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "14.x"
+    displayName: "Install Node.js"
+
+  - script: npm ci
+    workingDirectory: "$(workingDir)"
+    displayName: "npm install"
+
+  # - script: |
+  #     npm install --dev
+  #     # Just to log a warning for outaded packages
+  #     npm outdated
+  #     npm run test:ci
+  #   continueOnError: true
+  #   displayName: "Run Tests"
+  #   workingDirectory: "$(System.DefaultWorkingDirectory)"
+
+
+  # - task: PublishTestResults@2
+  #   condition: succeededOrFailed()
+  #   inputs:
+  #     testResultsFormat: 'JUnit'
+  #     testResultsFiles: '$(System.DefaultWorkingDirectory)/junit.xml'
+
+  # - task: PublishCodeCoverageResults@1
+  #   displayName: Publish Code Coverage
+  #   condition: succeededOrFailed()
+  #   inputs:
+  #     codeCoverageTool: Cobertura
+  #     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+
+
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'DockerHub'
+      command: 'login'
+
+  - task: Docker@2
+    displayName: Docker build
+    inputs:
+      containerRegistry: 'DockerHub'
+      repository: 'swarmidentity/resume'
+      command: 'build'
+      buildContext: '$(workingDir)'
+      Dockerfile: '$(workingDir)/Dockerfile'
+      tags: |
+        $(IMAGE_TAGS)
+  
+  - task: Docker@2
+    displayName: Publish image
+    # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    inputs:
+      containerRegistry: 'DockerHub'
+      repository: 'swarmidentity/resume'
+      command: 'push'
+      tags: |
+        $(IMAGE_TAGS)
+
+  - task: HelmInstaller@1
+    inputs:
+      helmVersionToInstall: latest
+  
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        sed -i 's/tag:.*/tag: $(IMAGE_SEMANTIC_HASH)/' $(workingDir)/deployment/louis-racette/values.yaml
+
+  - task: HelmDeploy@0
+    displayName: Package Helm Chart
+    inputs:
+      command: package
+      chartPath: $(workingDir)/deployment/louis-racette
+      destination: $(Build.ArtifactStagingDirectory)
+      updatedependency: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Helm chart
+    # Only publish develop branch
+    # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      ArtifactName: "resume"
+      publishLocation: "Container"
+
+

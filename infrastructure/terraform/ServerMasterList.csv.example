@@ -1,0 +1,3 @@
+local_id,ServerName,AzureGroup,DesiredURL
+1,QA,LouisRacette-QA,qa.watchdog-app.info
+2,Production,LouisRacette-Prod,watchdog-app.info

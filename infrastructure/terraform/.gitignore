@@ -1,0 +1,10 @@
+hetznerconfig.tfvars
+ServerMasterList.csv
+
+.terraform/*
+.terraform.lock.hcl
+terraform.tfstate*
+
+getCurrentSnapshots-sensitive.sh
+getCurrentDNS-sensitive.sh
+current_images.json
