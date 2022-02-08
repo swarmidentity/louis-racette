@@ -2,11 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "helm.fullname" . }}
+  labels:
+    com.louisracette.project: services
+    com.louisracette.app: nestjs
+    com.louisracette.instance: {{ .Release.Name }}-resume
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      org.oneacrefund.instance: {{ .Release.Name }}-resume
+      com.louisracette.instance: {{ .Release.Name }}-resume
   template:
     spec:
       containers:
