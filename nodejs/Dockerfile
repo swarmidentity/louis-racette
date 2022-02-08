@@ -16,6 +16,6 @@ RUN apk --no-cache add curl
 
 WORKDIR /app
 
-EXPOSE 5000
+EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
