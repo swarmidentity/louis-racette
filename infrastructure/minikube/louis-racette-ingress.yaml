@@ -1,21 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: resume-ingress
+  namespace: resume
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  rules:
-    # - http:
-    #     paths:
-    #     - path: /
-    #       pathType: Prefix
-    #       backend:
-    #         service:
-    #           name: web
-    #           port:
-    #             number: 8080
-            
+  rules:    
     - host: demo.watch-dog.info
       http:
         paths:
@@ -23,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: web
+                name: resume-svc
                 port:
-                  number: 8080
+                  number: 3000
