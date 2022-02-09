@@ -38,16 +38,14 @@
     
       // Get the different categories and count them
       var categories = ["Tensorflow","Node.JS","Flutter","Azure CI/CD","SQL Server","ElasticSearch","Kubernetes","Docker","CouchBase","POSTGres","C#/ASP.NET","Embedded C","React","Angular","Powershell","Python","Java","JavaScript","MySQL","BASH","CMD","PERL","PHP","VHDL","ARM/x86 Assembly","C++","MATLAB","BASIC","HTML/CSS"]
-
-//          "Almost Certainly", "Very Good Chance", "We Believe", "Likely", "About Even", "Little Chance", "Chances Are Slight", "Almost No Chance" ]
       var n = categories.length
     
       // Compute the mean of each group
-      allMeans = []
+      allMaxes = []
       for (i in categories){
         currentGroup = categories[i]
-        mean = d3.mean(data, function(d) { return +d[currentGroup] })
-        allMeans.push(mean)
+        max = d3.max(data, function(d) { return +d[currentGroup] })
+        allMaxes.push(max)
       }
     
       // Create a color scale using these means.
@@ -55,14 +53,15 @@
         .domain([0.0,1.0])
         .interpolator(d3.interpolateViridis);
     
+      var tickLocationX = height + margin.bottom / 4;
       // Add X axis
       var x = d3.scaleLinear()
         .domain([2005, 2025])
         .range([ 2005,2025 ]);
       var xAxis = svg.append("g")
         .attr("class", "xAxis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickValues([2005,2010,2015,2020,2025]).tickSize(-height) )
+        .attr("transform", "translate(0," + tickLocationX +")")
+        .call(d3.axisBottom(x).tickValues([2005,2010,2015,2020]).tickSize(-height) )
     
       // Add X axis label:
       svg.append("text")
@@ -109,7 +108,7 @@
           .attr("fill", function(d){
             grp = d.key ;
             index = categories.indexOf(grp)
-            value = allMeans[index]
+            value = allMaxes[index]
             return myColor( value  )
           })
           .datum(function(d){return(d.density)})
@@ -129,7 +128,7 @@
       xAxis
         .transition()
         .duration(2000)
-        .call(d3.axisBottom(x).tickValues([2005,2010,2015,2020,2025]).tickSize(-height) )
+        .call(d3.axisBottom(x).tickValues([2005,2010,2015,2020]).tickSize(-height).tickFormat(x => x.toString()) )
         .select(".domain").remove()
     
       // Animate densities apparition
