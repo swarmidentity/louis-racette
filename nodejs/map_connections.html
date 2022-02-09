@@ -16,11 +16,35 @@
     
     // Map and projection
     const projection = d3.geoMercator()
-        .scale(85)
+        .scale(60)
         .translate([width/2, height/2*1.3])
     
+    //Places I've visited
+    //Projects I've managed
+
+    const projectsIveManaged = [
+{type: "LineString", coordinates: [[30.0619,-1.9441], [30.0619,-1.9441]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [36.817223,-1.286389]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [37.3556,-3.0674]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [28.3228,-15.3875]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [77.2091,28.6139]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [33.2026,0.4479]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [29.3599,-3.3614]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [34.3015,-13.2543]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [3.3792,6.5244]]},
+]
+
+    //Remote work experience
+    const remoteWorkExperience = [
+{type: "LineString", coordinates: [[30.0619,-1.9441], [33.2026,0.4479]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [3.3792,6.5244]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [55.2708,25.2048]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [-70.6693,-33.4489]]},
+{type: "LineString", coordinates: [[30.0619,-1.9441], [-122.3321,47.6062]]},
+]
+
     // Create data: use a python script to generate this from some csvs and copy/paste the result here. A bit sloppy, but ok for a one-off.
-    const link = [
+    const placesIveTraveled = [
 {type: "LineString", coordinates: [[-73.82116,44.618195], [-73.5673,45.5017]]},// From: Redford To: Montreal"
 {type: "LineString", coordinates: [[-73.82116,44.618195], [11.582,48.1351]]},// From: Redford To: Munich"
 {type: "LineString", coordinates: [[-73.82116,44.618195], [-151.0583,60.4878]]},// From: Redford To: Soldatna"
@@ -130,7 +154,34 @@
 {type: "LineString", coordinates: [[-58.3816,-34.6037], [-70.6693,-33.4489]]},// From: Buenos Aires To: Santiago"
 
     ]
+
+
+    function dimAllExceptClassLabel (classLabel) {
+            //Dim all blobs
+            svg.selectAll("path")
+            .filter(function() {
+                return !this.classList.contains('mapLine');
+            })
+            .transition().duration(200)
+            .style("stroke-width", 0.1); 
+            //Bring back the hovered over blob
+            svg.selectAll(classLabel)
+            .transition().duration(200)
+            .style("stroke-width", 2.0);	       
+        }
+
+        function returnAllToNormal() {
+                    //Bring back all blobs
+                    d3.selectAll("path")
+                    .filter(function() {
+                        return !this.classList.contains('mapLine');
+                    })
+                    .transition().duration(200)
+                    .style("stroke-width", 2.0);
+                
+        }
     
+
     // A path generator
     const path = d3.geoPath()
         .projection(projection)
@@ -145,8 +196,9 @@
             .join("path")
                 .attr("fill", "#b8b8b8")
                 .attr("d", path)
-                .style("stroke", "#fff")
-                .style("stroke-width", 0)
+                .attr("class", "mapLine")
+                .style("stroke", "#b8b8b8")
+                .style("stroke-width", 0.5)
     
                 var colors = d3.scaleLinear()
                     .domain(d3.ticks(0, 50, 11))
@@ -154,13 +206,59 @@
                     "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"]);
 
         // Add the path
-        svg.selectAll("myPath")
-          .data(link)
+        svg.selectAll("placesTraveled")
+          .data(placesIveTraveled)
           .join("path")
+            .attr("class", "placesTraveled")
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
             .style("stroke", function(d,i) { return colors(i) })
             .style("stroke-width", 2)
+
+        svg.selectAll("projectsManaged")
+          .data(projectsIveManaged)
+          .join("path")
+            .attr("class", "projectsManaged")
+            .attr("d", function(d){ return path(d)})
+            .style("fill", "none")
+            .style("stroke", function(d,i) { return colors(i) })
+            .style("stroke-width", 2)
+        
+        svg.selectAll("remoteWork")
+          .data(remoteWorkExperience)
+          .join("path")
+            .attr("class", "remoteWork")
+            .attr("d", function(d){ return path(d)})
+            .style("fill", "none")
+            .style("stroke", function(d,i) { return colors(i) })
+            .style("stroke-width", 2)
+
+        //Add some control labels
+
+
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width )
+                .attr("y", 40)
+                .text("Places I've Visited")
+                .on('mouseover', function() {dimAllExceptClassLabel(".placesTraveled") } )
+                .on('mouseout', function() {returnAllToNormal()});
+
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width )
+                .attr("y", 60)
+                .text("Projects I've Managed")
+                .on('mouseover', function() {dimAllExceptClassLabel(".projectsManaged") } )
+                .on('mouseout', function() {returnAllToNormal()});
+            
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width )
+                .attr("y", 80)
+                .text("Remote Team Experience")
+                .on('mouseover', function() {dimAllExceptClassLabel(".remoteWork") } )
+                .on('mouseout', function() {returnAllToNormal()});
     
     })
     </script>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="/offline-scripts/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<!-- Style -->
+<style>
+.xAxis line {
+  stroke: #B8B8B8;
+}
+</style>
+
+<!-- Viridis color palette-->
+<script src="offline-scripts/d3-scale-chromatic.v1.min.js"></script>
+
+<script>
+   var fileNameToLoad = "coding_language_history.csv"
+   var categories = ["Tensorflow","Node.JS","Flutter","Azure CI/CD","SQL Server","ElasticSearch","Kubernetes","Docker","CouchBase","POSTGres","C#/ASP.NET","Embedded C","React","Angular","Powershell","Python","Java","JavaScript","MySQL","BASH","CMD","PERL","PHP","VHDL","ARM/x86 Assembly","C++","MATLAB","BASIC","HTML/CSS"]
+      
+          // set the dimensions and margins of the graph
+    var margin = {top: 80, right: 30, bottom: 50, left:110},
+        width = 460 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
+</script>
+
+<script src="joyplot_languages.js"></script>
+

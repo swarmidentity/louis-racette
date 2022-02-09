@@ -1,28 +1,5 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
 
-<!-- Load d3.js -->
-<script src="/offline-scripts/d3.v4.js"></script>
 
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
-
-<!-- Style -->
-<style>
-.xAxis line {
-  stroke: #B8B8B8;
-}
-</style>
-
-<!-- Viridis color palette-->
-<script src="offline-scripts/d3-scale-chromatic.v1.min.js"></script>
-
-<script>
-//TODO: SQLite
-    // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 30, bottom: 50, left:110},
-        width = 460 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
     
     // append the svg object to the body of the page
     var svg = d3.select("#my_dataviz")
@@ -34,10 +11,9 @@
               "translate(" + margin.left + "," + margin.top + ")");
     
     //read data
-    d3.csv("coding_language_history.csv", function(data) {
+    d3.csv(fileNameToLoad, function(data) {
     
       // Get the different categories and count them
-      var categories = ["Tensorflow","Node.JS","Flutter","Azure CI/CD","SQL Server","ElasticSearch","Kubernetes","Docker","CouchBase","POSTGres","C#/ASP.NET","Embedded C","React","Angular","Powershell","Python","Java","JavaScript","MySQL","BASH","CMD","PERL","PHP","VHDL","ARM/x86 Assembly","C++","MATLAB","BASIC","HTML/CSS"]
       var n = categories.length
     
       // Compute the mean of each group
@@ -66,9 +42,9 @@
       // Add X axis label:
       svg.append("text")
           .attr("text-anchor", "end")
-          .attr("x", width)
+          .attr("x", width/2 )
           .attr("y", height + 40)
-          .text("Familiarity");
+          .text("Languages I've Used");
     
       // Create a Y scale for densities
       var y = d3.scaleLinear()
@@ -140,17 +116,17 @@
           });
     
       //Animate X axis apparition
-      x.range([ 0, width ]);
+       x.range([ 0, width ]);
       xAxis
         .transition()
-        .duration(2000)
+        .duration(10)
         .call(d3.axisBottom(x).tickValues([2005,2010,2015,2020]).tickSize(-height).tickFormat(x => x.toString()) )
         .select(".domain").remove()
     
       // Animate densities apparition
       myCurves
         .transition()
-        .duration(2000)
+        .duration(10)
         .attr("d",  d3.line()
             .curve(d3.curveBasis)
             .x(function(d) { return x(d[0]); })
@@ -158,19 +134,5 @@
         )
     
     })
-    
-    // This is what I need to compute kernel density estimation
-    function kernelDensityEstimator(kernel, X) {
-      return function(V) {
-        return X.map(function(x) {
-          return [x, d3.mean(V, function(v) { return kernel(x - v); })];
-        });
-      };
-    }
-    function kernelEpanechnikov(k) {
-      return function(v) {
-        return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
-      };
-    }
-    
-    </script>
+
+    //Note - there's a display bug if you mouseover while the transition is happening, so I just cut the transition time to 10 ms
