@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: resume-ingress-louis-racette
+  namespace: resume
+  annotations:
+    kubernetes.io/ingress.class: public
+spec:
+  rules:    
+    - host: louisracette.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: resume-svc
+                port:
+                  number: 8080
+    - host: www.louisracette.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: resume-svc
+                port:
+                  number: 8080

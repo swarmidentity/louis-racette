@@ -1,0 +1,91 @@
+NOTE: I ran into some difficulty with minikube ingresses, so I'm going to use a reverse proxy instead of ingresses
+
+kubectl expose deployment -n sunfilter sunfilter --port=3000 --type=NodePort
+kubectl expose deployment -n resume resume-louis-racette --port=3000 --type=NodePort
+
+Then get the new ports:
+
+kubectl get services --all-namespaces
+NAMESPACE     NAME                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+default       kubernetes             ClusterIP   10.96.0.1        <none>        443/TCP                  15d
+kube-system   kube-dns               ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   15d
+resume        resume-louis-racette   NodePort    10.100.188.116   <none>        3000:31668/TCP           20s
+resume        resume-svc             ClusterIP   10.100.21.35     <none>        3000/TCP                 19m
+sunfilter     sunfilter              NodePort    10.98.182.84     <none>        3000:31365/TCP           44s
+sunfilter     sunfilter-public-svc   ClusterIP   10.111.80.186    <none>        3000/TCP                 11m
+sunfiter      sunfilter-public-svc   ClusterIP   10.106.162.254   <none>        3000/TCP                 19m
+
+--Attempt 1
+
+stream {
+  server {
+      listen 65.21.153.19:51999;
+      #TCP traffic will be forwarded to the specified server
+      proxy_pass 192.168.49.2:8443;
+  }
+  server {
+      listen louisracette.com:80;
+      proxy_pass 192.168.49.2:31668;
+  }
+  server {
+      listen sunfilter.org:80;
+      proxy_pass 192.168.49.2:31365;
+  }
+}
+
+--Attempt 2
+
+stream {
+  server {
+      listen 65.21.153.19:51999;
+      #TCP traffic will be forwarded to the specified server
+      proxy_pass 192.168.49.2:8443;
+  }
+  server {
+      listen 65.21.153.19:80;
+      server_name louisracette.com
+      proxy_pass 192.168.49.2:31668;
+  }
+  server {
+      listen 65.21.153.19:80;
+      server_name sunfilter.org
+      proxy_pass 192.168.49.2:31365;
+  }
+}
+
+--Attempt 3
+stream {
+  server {
+      listen 65.21.153.19:51999;
+      #TCP traffic will be forwarded to the specified server
+      proxy_pass 192.168.49.2:8443;
+  }
+  server {
+      listen 65.21.153.19:80;
+      server_name louisracette.com {
+      proxy_pass 192.168.49.2:31668;
+      }
+      server_name sunfilter.org {
+      proxy_pass 192.168.49.2:31365;
+      }
+  }
+}
+
+--Attempt 4
+stream {
+  server {
+      listen 65.21.153.19:51999;
+      #TCP traffic will be forwarded to the specified server
+      proxy_pass 192.168.49.2:8443;
+  }
+  server {
+      listen 65.21.153.19:80;
+      server_name louisracette.com sunfilter.org ;
+      location / {
+      proxy_pass 192.168.49.2:31668;
+      }
+      location /sunfilter {
+      proxy_pass 192.168.49.2:31365;
+      }
+  }
+}
