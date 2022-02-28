@@ -13,6 +13,7 @@ div.tooltip-donut {
 .jumbotron {text-align: center; 
   background-color: rgba(230,230,230,0.8);
   border-radius: 12px ;
+  padding: 0.5rem 2rem;
 }
 .jumbotron span {color: red;}
 
