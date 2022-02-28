@@ -10,6 +10,19 @@ div.tooltip-donut {
     font-size: 1.3rem;
 }
 
-svg{
-    background: black;
+.jumbotron {text-align: center; background-color: rgba(230,230,230,0.8); }
+.jumbotron span {color: red;}
+
+/* svg{
+    background: #303030;;
+  } */
+
+  body {
+    background-image: url("assets/profile-pic/louis-pic.jpg");
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    background-size: cover;
   }

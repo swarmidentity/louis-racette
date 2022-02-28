@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<head>
+  <link rel="stylesheet" href="iframe.css">
+</head>
+
 
 <!-- Load d3.js -->
 <script src="/offline-scripts/d3.v6.js"></script>
@@ -13,9 +17,12 @@
   
   const div = d3.selectAll("div");
 
+  var pageWidth = window.innerWidth;
+var pageHeight = 700;
+
   var margin = {top: 80, right: 30, bottom: 50, left:110},
-        width = 700 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+        width = pageWidth - margin.left - margin.right,
+        height = pageHeight - margin.top - margin.bottom;
 
   d3.json("/technologies.json").then(function(data) {
 
@@ -31,8 +38,8 @@
           nodeTitle: d => `${d.id}\n${d.group}`,
           linkStrokeWidth: l => Math.sqrt(l.value),
           linkGroup: l => l.group,
-          width: 700,
-          height: 700,
+          width: pageWidth,
+          height: pageHeight,
           invalidation: null // a promise to stop the simulation when the cell is re-run
         })
 
