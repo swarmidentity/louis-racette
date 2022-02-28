@@ -10,7 +10,10 @@ div.tooltip-donut {
     font-size: 1.3rem;
 }
 
-.jumbotron {text-align: center; background-color: rgba(230,230,230,0.8); }
+.jumbotron {text-align: center; 
+  background-color: rgba(230,230,230,0.8);
+  border-radius: 12px ;
+}
 .jumbotron span {color: red;}
 
 /* svg{
