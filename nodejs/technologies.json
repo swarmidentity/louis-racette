@@ -558,6 +558,12 @@
         },
         {
             "source": "Terminals",
+            "target": "DevOps",
+            "group":6,
+            "value": 10
+        },
+        {
+            "source": "Terminals",
             "target": "CMD",
             "group":6,
             "value": 10
