@@ -187,7 +187,8 @@ function RadarChart(id, data, options) {
 	
     //Add class text - a bit of a hack, this is a once-off
     blobWrapper.append("text").text(function(d,i) { 
-        if (i == 0) return "Startups (Developer)";
+        if (i == 0) return "Personal Projects";
+		else if (i == 1) return "Startups (Developer)";
         else return "Large Teams (DevOps)"
     })
     .style("stroke", function(d,i) { return cfg.color(i); })

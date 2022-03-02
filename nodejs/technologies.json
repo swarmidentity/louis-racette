@@ -50,7 +50,7 @@
             "group": 2
         },
         {
-            "id": "PWAs",
+            "id": "Progressive Web Apps",
             "image":"/assets/pwa.png",
             "strength": 1.0,
             "group": 2
@@ -118,7 +118,7 @@
         {
             "id": "Frontend",
             "image":"/assets/frontend.png",
-            "strength": 1.3,
+            "strength": 0.9,
             "group": 4
         },
         {
@@ -467,7 +467,7 @@
         },
         {
             "source": "Mobile",
-            "target": "PWAs",
+            "target": "Progressive Web Apps",
             "group":2,
             "value": 10
         },
