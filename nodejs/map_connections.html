@@ -42,11 +42,10 @@
 
     //Remote work experience
     const remoteWorkExperience = [
-{type: "LineString", coordinates: [[30.0619,-1.9441], [33.2026,0.4479]]},
-{type: "LineString", coordinates: [[30.0619,-1.9441], [3.3792,6.5244]]},
-{type: "LineString", coordinates: [[30.0619,-1.9441], [55.2708,25.2048]]},
-{type: "LineString", coordinates: [[30.0619,-1.9441], [-70.6693,-33.4489]]},
-{type: "LineString", coordinates: [[30.0619,-1.9441], [-122.3321,47.6062]]},
+{type: "LineString", coordinates: [[-74.006,40.7128], [33.2026,0.4479]]},
+{type: "LineString", coordinates: [[-74.006,40.7128], [3.3792,6.5244]]},
+{type: "LineString", coordinates: [[-74.006,40.7128], [55.2708,25.2048]]},
+{type: "LineString", coordinates: [[-74.006,40.7128], [30.0619,-1.9441]]},
 ]
 
     // Create data: use a python script to generate this from some csvs and copy/paste the result here. A bit sloppy, but ok for a one-off.
@@ -158,6 +157,9 @@
 {type: "LineString", coordinates: [[-74.006,40.7128], [-68.303,-54.8019]]},// From: NYC To: Ushuaia"
 {type: "LineString", coordinates: [[-68.303,-54.8019], [-58.3816,-34.6037]]},// From: Ushuaia To: Buenos Aires"
 {type: "LineString", coordinates: [[-58.3816,-34.6037], [-70.6693,-33.4489]]},// From: Buenos Aires To: Santiago"
+{type: "LineString", coordinates: [[-70.6693,-33.4489], [-86.2362,12.115]]}, //Panama City (approx)
+{type: "LineString", coordinates: [[-86.2362,12.115], [-122.4194,37.7749]]}, //San Fran (approx)
+//{type: "LineString", coordinates: [[-122.3321,47.6062], [-151.0583,60.4878]]}, //soldatna - seattle
 
     ]
 
@@ -206,10 +208,29 @@
                 .style("stroke", "#b8b8b8")
                 .style("stroke-width", 0.5)
     
-                var colors = d3.scaleLinear()
-                    .domain(d3.ticks(0, 50, 11))
-                    .range(["#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", 
-                    "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"]);
+//cornflower = #6495ed
+//seagreen = 2e8b57
+//dark red = 8b0000
+//violetred = d87093
+//aquamarine = #7fffd4
+//royal blue = 4169e1
+//green = 008000
+
+        var placesTraveledColors = d3.scaleLinear()
+            .domain(d3.ticks(0, 50, 3))
+            .range(["#6495ED", "#4169E1"]);
+
+    
+            var projectsManagedColors = d3.scaleLinear()
+            .domain(d3.ticks(0, 50, 5))
+            .range(["#5EBB87","#7FFFD4"]);
+
+            var remoteWorkColors = d3.scaleLinear()
+            .domain(d3.ticks(0, 50, 11))
+            .range(["#00A000","#008000"]);
+
+            // "#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", 
+            // "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"
 
         // Add the path
         svg.selectAll("placesTraveled")
@@ -218,7 +239,7 @@
             .attr("class", "placesTraveled")
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
-            .style("stroke", function(d,i) { return colors(i) })
+            .style("stroke", function(d,i) { return placesTraveledColors(i) })
             .style("stroke-width", 2)
 
         svg.selectAll("projectsManaged")
@@ -227,7 +248,7 @@
             .attr("class", "projectsManaged")
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
-            .style("stroke", function(d,i) { return colors(i) })
+            .style("stroke", function(d,i) { return projectsManagedColors(i) })
             .style("stroke-width", 2)
         
         svg.selectAll("remoteWork")
@@ -236,7 +257,7 @@
             .attr("class", "remoteWork")
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
-            .style("stroke", function(d,i) { return colors(i) })
+            .style("stroke", function(d,i) { return remoteWorkColors(i) })
             .style("stroke-width", 2)
 
         //Add some control labels
@@ -244,25 +265,28 @@
 
             svg.append("text")
                 .attr("text-anchor", "end")
-                .attr("x", width )
-                .attr("y", 40)
+                .attr("x", 120 )
+                .attr("y", 270)
+                .attr("stroke", placesTraveledColors(0))
                 .text("Places I've Visited")
                 .on('mouseover', function() {dimAllExceptClassLabel(".placesTraveled") } )
                 .on('mouseout', function() {returnAllToNormal()});
 
             svg.append("text")
                 .attr("text-anchor", "end")
-                .attr("x", width )
-                .attr("y", 60)
+                .attr("x", 280 )
+                .attr("y", 270)
+                .attr("stroke", projectsManagedColors(0))
                 .text("Projects I've Managed")
                 .on('mouseover', function() {dimAllExceptClassLabel(".projectsManaged") } )
                 .on('mouseout', function() {returnAllToNormal()});
             
             svg.append("text")
                 .attr("text-anchor", "end")
-                .attr("x", width )
-                .attr("y", 80)
-                .text("Remote Team Experience")
+                .attr("x", 440 )
+                .attr("y", 270)
+                .attr("stroke", remoteWorkColors(0))
+                .text("People I've Managed")
                 .on('mouseover', function() {dimAllExceptClassLabel(".remoteWork") } )
                 .on('mouseout', function() {returnAllToNormal()});
     

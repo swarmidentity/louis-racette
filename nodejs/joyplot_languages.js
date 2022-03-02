@@ -26,8 +26,8 @@
     
       // Create a color scale using these means.
       var myColor = d3.scaleSequential()
-        .domain([0.0,1.0])
-        .interpolator(d3.interpolateViridis);
+        .domain([-1.0,1.0])
+        .interpolator(d3.interpolateRainbow);
     
       var tickLocationX = height + margin.bottom / 4;
       // Add X axis

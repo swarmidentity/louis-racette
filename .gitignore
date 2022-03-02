@@ -1,2 +1,3 @@
 infrastructure/minikube/.kube
 infrastructure/minikube/kube-sensitive
+infrastructure/microk8s/ssl/sensitive*
