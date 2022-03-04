@@ -86,9 +86,9 @@ data "hcloud_image" "linuxImage" {
 }
 
 
-resource "hcloud_server" "WatchdogLinuxServer" {
+resource "hcloud_server" "LouisRacetteLinuxServer" {
 for_each = { for inst in local.desiredHetznerServers : inst.local_id => inst }
-  name        = "Watchdog-${each.value.ServerName}"
+  name        = "LouisRacette-${each.value.ServerName}"
   server_type = "cx11"
   image       = "${data.hcloud_image.linuxImage.id}"
   labels      = tomap({"ServerName"="${lower(each.value.ServerName)}","URL"="${lower(each.value.DesiredURL)}"})
@@ -97,15 +97,16 @@ for_each = { for inst in local.desiredHetznerServers : inst.local_id => inst }
   provisioner "remote-exec" {
     inline = [
     "export HISTIGNORE='*sudo -S*'",
+# These scripts require a configured root password on the server and Azure DevOPS PAT
 #	  "echo ${var.admin_password} | sudo -S apt-get update",
-#    "echo ${var.admin_password} | mkdir azagent;cd azagent;curl -fkSL -o vstsagent.tar.gz https://vstsagentpackage.azureedge.net/agent/2.195.0/vsts-agent-linux-x64-2.195.0.tar.gz;tar -zxvf vstsagent.tar.gz; if [ -x \"$(command -v systemctl)\" ]; then ./config.sh --deploymentgroup --deploymentgroupname \"${each.value.AzureGroup}\" --acceptteeeula --agent $HOSTNAME --url https://dev.azure.com/swarmidentity/ --work _work --projectname 'Watchdog' --auth PAT --token \"${var.Azure_DevOps_PAT}\" --runasservice;",
+#    "echo ${var.admin_password} | mkdir azagent;cd azagent;curl -fkSL -o vstsagent.tar.gz https://vstsagentpackage.azureedge.net/agent/2.195.0/vsts-agent-linux-x64-2.195.0.tar.gz;tar -zxvf vstsagent.tar.gz; if [ -x \"$(command -v systemctl)\" ]; then ./config.sh --deploymentgroup --deploymentgroupname \"${each.value.AzureGroup}\" --acceptteeeula --agent $HOSTNAME --url https://dev.azure.com/swarmidentity/ --work _work --projectname 'LouisRacette' --auth PAT --token \"${var.Azure_DevOps_PAT}\" --runasservice;",
 #    "echo ${var.admin_password} | sudo -S ./svc.sh install;",
-#    "echo ${var.admin_password} | sudo -S ./svc.sh start; else ./config.sh --deploymentgroup --deploymentgroupname \"${each.value.AzureGroup}\" --acceptteeeula --agent $HOSTNAME --addDeploymentGroupTags --deploymentGroupTags \"web\" --url https://dev.azure.com/swarmidentity/ --work _work --projectname 'Watchdog' --auth PAT --token ${var.Azure_DevOps_PAT}; ./run.sh; fi"
+#    "echo ${var.admin_password} | sudo -S ./svc.sh start; else ./config.sh --deploymentgroup --deploymentgroupname \"${each.value.AzureGroup}\" --acceptteeeula --agent $HOSTNAME --addDeploymentGroupTags --deploymentGroupTags \"web\" --url https://dev.azure.com/swarmidentity/ --work _work --projectname 'LouisRacette' --auth PAT --token ${var.Azure_DevOps_PAT}; ./run.sh; fi"
   ]
 	  
 	connection {
     type     = "ssh"
-    user     = "watchdog-admin"
+    user     = "louisracette-admin"
     password = "${var.admin_password}"
     host     = "${self.ipv4_address}"
 	  timeout  = "2m"
@@ -114,14 +115,14 @@ for_each = { for inst in local.desiredHetznerServers : inst.local_id => inst }
 }
 
 
-resource "hcloud_volume" "WatchdogLinuxVolume" {
-for_each = { for inst in hcloud_server.WatchdogLinuxServer : inst.id => inst }
+resource "hcloud_volume" "LouisRacetteLinuxVolume" {
+for_each = { for inst in hcloud_server.LouisRacetteLinuxServer : inst.id => inst }
  name = "Volume-${each.key}"
   size = 1            #Start with only a small volume, this may grow later
   server_id = "${each.key}"
   automount = true
   format = "xfs"
-  depends_on = [ hcloud_server.WatchdogLinuxServer ]
+  depends_on = [ hcloud_server.LouisRacetteLinuxServer ]
 }
 
 
@@ -133,17 +134,17 @@ for_each = { for inst in hcloud_server.WatchdogLinuxServer : inst.id => inst }
 
 
 data "hetznerdns_zone" "dns_zone" {
-    name = "watch-dog.info"
+    name = "louisracette.com"
 }
 
-resource "hetznerdns_record" "watchdog_dns" {
-  for_each = { for inst in hcloud_server.WatchdogLinuxServer : inst.id => inst }
+resource "hetznerdns_record" "louisracette_dns" {
+  for_each = { for inst in hcloud_server.LouisRacetteLinuxServer : inst.id => inst }
     zone_id = data.hetznerdns_zone.dns_zone.id
     name = "${lower(lookup(each.value.labels,"URL","test"))}"
     value = "${each.value.ipv4_address}"
     type = "A"
     ttl= 86400
-    depends_on = [ hcloud_server.WatchdogLinuxServer]
+    depends_on = [ hcloud_server.LouisRacetteLinuxServer]
 }
 
 
@@ -155,10 +156,10 @@ resource "hetznerdns_record" "watchdog_dns" {
 
 
 output "volume_specs" {
-value = [for r in hcloud_volume.WatchdogLinuxVolume[*]: r]
+value = [for r in hcloud_volume.LouisRacetteLinuxVolume[*]: r]
 }
 
 output "server_specs" {
-value = [for r in hcloud_server.WatchdogLinuxServer[*]: r]
+value = [for r in hcloud_server.LouisRacetteLinuxServer[*]: r]
 }
 

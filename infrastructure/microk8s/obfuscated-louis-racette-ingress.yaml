@@ -5,7 +5,12 @@ metadata:
   namespace: resume
   annotations:
     kubernetes.io/ingress.class: public
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
+  tls:
+  - hosts: 
+    - louisracette.com
+    secretName: mySecretName
   rules:    
     - host: louisracette.com
       http:
@@ -17,13 +22,4 @@ spec:
                 name: resume-svc
                 port:
                   number: 8080
-    - host: www.louisracette.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: resume-svc
-                port:
-                  number: 8080
+  
