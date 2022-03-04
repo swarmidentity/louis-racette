@@ -1,7 +1,7 @@
 # Terraform setup scripts for hosting this personal site
 Terraform and Infrastructure Scripts
 
-Terraform scripts require a backup image that has a configured password.
+Terraform scripts require a backup image that has a configured password if you want to run any startup commands.
 
 ```
 #Setup servers
@@ -9,12 +9,7 @@ terraform init
 bash ./terraform-apply-all.sh
 ```
 
-```
-#Tear down servers
 
-```
-
-#TODO
 
 Add these configs to servers:
 
