@@ -1,1 +1,1 @@
-not best practices, but working on d3 visualizations while offline
+I spent a fair amount of time working on this while on planes, so I found offline bootstrap/d3 copies useful. Use the proper cloud-hosted versions if running on production.
