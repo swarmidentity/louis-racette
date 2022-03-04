@@ -1,6 +1,6 @@
 # Louis Racette's Resume Site
 
-www.louisracette.com
+https://louisracette.com
 
 Welcome to my personal resume website('s github repo)! I designed this site for a few reasons:
 
