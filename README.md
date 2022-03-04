@@ -27,4 +27,4 @@ If you want to modify this project for your own use, feel free to do so. I'm not
 
 ![Missing the Point!](/github-pics/missing-the-point.jpeg "Missing the point")
 
-If you like it and want to use the resume for your own project, please fork/give me credit somewhere and maybe [buy me a beer sometime.](https://spdx.org/licenses/Beerware.html).
+If you like it and want to use the resume for your own project, please fork/give me credit somewhere and maybe [buy me a beer sometime](https://spdx.org/licenses/Beerware.html).
